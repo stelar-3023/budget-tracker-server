@@ -1,18 +1,19 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Transactions } from './transactions.entity';
 
 @Entity()
 export class Users {
-  @PrimaryGeneratedColumn()
-  user_id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
-  user_name: string;
+  name: string;
+
+  @Column({ unique: true })
+  email: string;
 
   @Column()
-  user_email: string;
-
-  @Column()
-  user_password: string;
+  password: string;
 
   @Column()
   created_at: Date;
@@ -22,4 +23,7 @@ export class Users {
 
   @Column()
   deleted_at: Date;
+
+  @OneToMany(() => Transactions, (transaction) => transaction.user)
+  transaction: Transactions[];
 }

@@ -1,9 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Users } from './users.entity';
 
 @Entity()
-export class Transaction {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class Transactions {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  userId: string;
 
   @Column()
   description: string;
@@ -19,4 +23,7 @@ export class Transaction {
 
   @Column()
   deleted_at: Date;
+
+  @ManyToOne(() => Users, (user) => user.transaction)
+  user: Users;
 }
