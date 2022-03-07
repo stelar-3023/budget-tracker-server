@@ -1,4 +1,12 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  AfterInsert,
+  AfterRemove,
+  AfterUpdate,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Transactions } from './transactions.entity';
 
 @Entity()
@@ -26,4 +34,19 @@ export class Users {
 
   @OneToMany(() => Transactions, (transaction) => transaction.user)
   transaction: Transactions[];
+
+  @AfterInsert()
+  logInsert() {
+    console.log('Inserted user with id: ' + this.id);
+  }
+
+  @AfterUpdate()
+  logUpdate() {
+    console.log('Updated user with id: ' + this.id);
+  }
+
+  @AfterRemove()
+  logRemove() {
+    console.log('Removed user with id: ' + this.id);
+  }
 }
