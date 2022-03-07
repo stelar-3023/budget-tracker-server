@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res, Param,UseGuards, Query } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
 import { CurrentUser } from 'src/models/current.user';
@@ -25,6 +25,17 @@ export class UsersController {
     res.cookie('auth-cookie', secretData, { httpOnly: true });
     return { msg: 'success' };
   }
+
+  @Get('/:id')
+  findUser(@Param('id') id: string) {
+    return this.userService.getUserById(id);
+  }
+
+  @Get()
+  findAllUsers(@Query('email') email: string) {
+    return this.userService.getUserByEmail(email);
+  }
+
 
   @Get('transactions')
   @UseGuards(AuthGuard('jwt'))

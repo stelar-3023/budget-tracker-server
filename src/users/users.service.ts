@@ -50,7 +50,6 @@ export class UsersService {
       result.message = errorMessage;
       result.status = false;
 
-
       return result;
     }
     // user object
@@ -99,4 +98,16 @@ export class UsersService {
     };
     return await this.jwtService.signAsync(payload);
   }
+
+  // get user by id
+  public async getUserById(id: string): Promise<Users> {
+    return await this.user.findOne({ id: id });
+  }
+
+  // get user by email
+  public async getUserByEmail(email: string): Promise<Users> {
+    return await this.user.findOne({ email: email });
+  }
+
+
 }
