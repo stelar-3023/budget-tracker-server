@@ -100,14 +100,24 @@ export class UsersService {
   }
 
   // get user by id
-  public async getUserById(id: string): Promise<Users> {
+  public async getUserById(id: string) {
     return await this.user.findOne({ id: id });
   }
 
   // get user by email
-  public async getUserByEmail(email: string): Promise<Users> {
-    return await this.user.findOne({ email: email });
+  public async getUserByEmail(email: string) {
+    return await this.user.find({ email: email });
   }
 
+  // update user
+  public async updateUser(id: string, attrs: Partial<Users>) {
+    const user = await this.getUserById(id);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    Object.assign(user, attrs); // copy the attributes to the user
+    return this.user.save(user);
+  }
 
+  // delete user
 }

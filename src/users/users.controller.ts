@@ -36,15 +36,15 @@ export class UsersController {
     return this.userService.getUserByEmail(email);
   }
   
-  @Put('/:id')
-  updateUser(@Param('id') id: string, @Body() user: any) {
-    return this.userService.updateUser(id, user);
-  }
+  // @Put('/:id')
+  // updateUser(@Param('id') id: string, @Body() user: any) {
+  //   return this.userService.updateUser(id, user);
+  // }
 
-  @Delete('/:id')
-  deleteUser(@Param('id') id: string) {
-    return this.userService.deleteUser(id);
-  }
+  // @Delete('/:id')
+  // deleteUser(@Param('id') id: string) {
+  //   return this.userService.deleteUser(id);
+  // }
 
   @Get('transactions')
   @UseGuards(AuthGuard('jwt'))
