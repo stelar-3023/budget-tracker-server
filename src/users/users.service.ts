@@ -120,4 +120,11 @@ export class UsersService {
   }
 
   // delete user
+  public async deleteUser(id: string) {
+    const user = await this.getUserById(id);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return this.user.remove(user);
+  }
 }
