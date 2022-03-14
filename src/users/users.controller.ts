@@ -10,6 +10,8 @@ import {
   Query,
   Patch,
   Delete,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
@@ -39,6 +41,7 @@ export class UsersController {
     return { msg: 'success' };
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:id')
   findUser(@Param('id') id: string) {
     return this.userService.getUserById(id);
@@ -59,8 +62,6 @@ export class UsersController {
     return this.userService.deleteUser(id);
   }
 
-
-  
   @Get('transactions')
   @UseGuards(AuthGuard('jwt'))
   async transactions() {
