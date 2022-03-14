@@ -1,5 +1,6 @@
 import {
   AfterInsert,
+  BeforeRemove,
   AfterRemove,
   AfterUpdate,
   Column,
@@ -43,6 +44,11 @@ export class Users {
   @AfterUpdate()
   logUpdate() {
     console.log('Updated user with id: ' + this.id);
+  }
+
+  @BeforeRemove()
+  async remove() {
+    console.log('Removing user with id: ' + this.id);
   }
 
   @AfterRemove()
