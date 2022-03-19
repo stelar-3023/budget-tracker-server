@@ -10,8 +10,6 @@ import {
   Query,
   Patch,
   Delete,
-  UseInterceptors,
-  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
@@ -19,8 +17,11 @@ import { CurrentUser } from 'src/models/current.user';
 import { RegistrationReqModel } from 'src/models/registration.req.model';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { Serialize } from '../interceptors/serialize.interceptor';
+import { UserDto } from './dtos/user.dto';
 
 @Controller('users')
+@Serialize(UserDto)
 export class UsersController {
   constructor(private userService: UsersService) {}
 
@@ -41,9 +42,10 @@ export class UsersController {
     return { msg: 'success' };
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
+  // @UseInterceptors(new SerializeInterceptor(UserDto))
   @Get('/:id')
   findUser(@Param('id') id: string) {
+    // console.log('handler is running');
     return this.userService.getUserById(id);
   }
 
