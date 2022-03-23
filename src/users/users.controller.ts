@@ -63,10 +63,4 @@ export class UsersController {
   deleteUser(@Param('id') id: string) {
     return this.userService.deleteUser(id);
   }
-
-  @Get('transactions')
-  @UseGuards(AuthGuard('jwt'))
-  async transactions() {
-    return ['car wash', 'car repair', 'car insurance'];
-  }
 }
