@@ -22,13 +22,13 @@ export class TransactionsService {
   }
 
   // get transaction by id
-  public async getTransactionById(id: number): Promise<Transactions> {
+  public async getTransactionById(id: string) {
     return await this.transaction.findOne(id);
   }
 
   // update transaction
   public async updateTransaction(
-    id: number,
+    id: string,
     attrs: TransactionDto,
   ): Promise<Transactions> {
     const transaction = await this.getTransactionById(id);
@@ -40,7 +40,7 @@ export class TransactionsService {
   }
 
   // delete transaction
-  public async deleteTransaction(id: number) {
+  public async deleteTransaction(id: string) {
     const transaction = await this.getTransactionById(id);
     if (!transaction) {
       throw new NotFoundException('Transaction not found');

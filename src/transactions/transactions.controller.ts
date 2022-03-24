@@ -16,7 +16,7 @@ export class TransactionsController {
   }
 
   @Get(':/id')
-  async getTransactionById(id: number) {
+  async getTransactionById(@Param('id') id: string) {
     // get transaction by id
     return this.transactionService.getTransactionById(id);
   }
@@ -35,14 +35,14 @@ export class TransactionsController {
   
   @UseGuards(AuthGuard('jwt'))
   @Patch('/:id')
-  async updateTransaction(@Param('id') id: number, @Body() transaction: UpdateTransactionDto, @Request() req): Promise<Transactions> {
+  async updateTransaction(@Param('id') id: string, @Body() transaction: UpdateTransactionDto, @Request() req): Promise<Transactions> {
     // update transaction
     return this.transactionService.updateTransaction(id, transaction);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Delete('/:id')
-  async deleteTransaction(@Param('id') id: number, @Request() req) {
+  async deleteTransaction(@Param('id') id: string, @Request() req) {
     // delete transaction
     return this.transactionService.deleteTransaction(id);
   }
